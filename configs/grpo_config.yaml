@@ -2,7 +2,7 @@
 
 # Rollout settings
 max_turns: 8
-rollout_interaction_env_path: examples.osworld.env
+rollout_interaction_env_path: slime_osworld.env
 
 # Context limits
 max_total_tokens: 16384

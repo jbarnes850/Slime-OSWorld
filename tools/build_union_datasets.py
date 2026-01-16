@@ -13,7 +13,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import sys
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
@@ -21,10 +20,8 @@ from typing import Any
 
 import pandas as pd
 
-ROOT_DIR = Path(__file__).resolve().parents[3]
-sys.path.append(str(ROOT_DIR))
-
-from examples.osworld.env import OSWORLD_SYSTEM_PROMPT, OSWorldEnvConfig, OSWorldEnvWrapper
+# Import from slime_osworld package (must be installed: pip install -e .)
+from slime_osworld.env import OSWORLD_SYSTEM_PROMPT, OSWorldEnvConfig, OSWorldEnvWrapper
 
 
 @dataclass(frozen=True)

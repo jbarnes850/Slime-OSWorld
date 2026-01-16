@@ -19,12 +19,28 @@ OSWorld tasks have sparse rewards (0 or 1 for task completion). GSPO requires wi
 
 **Note**: On-policy distillation (UI-TARS-2, arXiv:2509.02544) achieves stronger results (47.5% on OSWorld) than off-policy approaches. This cookbook uses off-policy replay as a reproducible baseline.
 
+## Requirements
+
+**Important**: This cookbook requires slime with VLM extensions that are not yet in the main branch. Install slime from the `feature/osworld-vlm-cookbook` branch:
+
+```bash
+# Install slime with required VLM extensions
+git clone https://github.com/THUDM/slime.git /root/slime
+cd /root/slime
+git checkout feature/osworld-vlm-cookbook
+pip install -e .
+```
+
+The branch adds:
+- `prepare_model_inputs()` in `slime/utils/processing_utils.py`
+- `apply_chat_template_fn` parameter and `get_loss_mask_with_tokenizer_fn()` method in `MultiTurnLossMaskGenerator`
+
 ## Installation
 
 ```bash
 pip install -e .
 
-# With training dependencies
+# With training dependencies (requires slime from feature branch above)
 pip install -e ".[train]"
 ```
 
@@ -36,8 +52,9 @@ docker pull slimerl/slime:latest
 docker run --gpus all --ipc=host --shm-size=16g \
   -v /ephemeral:/ephemeral -it slimerl/slime:latest /bin/bash
 
-# Inside container
-git clone https://github.com/THUDM/slime.git /root/slime && cd /root/slime && pip install -e .
+# Inside container - install slime from feature branch with VLM extensions
+git clone https://github.com/THUDM/slime.git /root/slime && cd /root/slime
+git checkout feature/osworld-vlm-cookbook && pip install -e .
 git clone https://github.com/jbarnes850/Slime-OSWorld.git /root/Slime-OSWorld && cd /root/Slime-OSWorld && pip install -e .
 
 # Download checkpoints and datasets
